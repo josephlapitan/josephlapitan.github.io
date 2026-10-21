@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Joseph Lapitan, UVA McIntire. Turning how people behave online into decisions: research across product, data, strategy, and investing, with a focus on gaming and Southeast Asia.">
+<meta property="og:title" content="Joseph Lapitan">
+<meta property="og:description" content="Joseph Lapitan, UVA McIntire. Turning how people behave online into decisions: research across product, data, strategy, and investing, with a focus on gaming and Southeast Asia.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0A0C11">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230A0C11'/%3E%3Ccircle cx='16' cy='16' r='5' fill='%237C95FF'/%3E%3C/svg%3E">
+<title>Joseph Lapitan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: signal in noise. A dark, grained field with soft blue light, one reading column, figures in mono.
+   Single dark look on purpose, matching the LinkedIn banner. */
+:root{
+  color-scheme:dark;
+  --bg:#0A0C11;
+  --panel:#10141B;
+  --fg:#E7EAF0;
+  --muted:#8C95A4;
+  --faint:#5D6676;
+  --rule:rgba(214,224,255,.10);
+  --signal:#7C95FF;
+  --signal-soft:rgba(124,149,255,.12);
+  --glow:rgba(46,78,214,.30);
+  --s1:#8FA6FF; --s2:#E3A55A; --s3:#5CC9A7;
+  --sans:"Geist",system-ui,-apple-system,"Segoe UI",Helvetica,Arial,sans-serif;
+  --mono:"Geist Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+}
+[hidden]{display:none!important}
+html{background:var(--bg)}
+body{background:var(--bg);color:var(--fg);font-family:var(--sans);font-size:16px;line-height:1.62;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  background-image:radial-gradient(60% 45% at 12% 0%,var(--glow),transparent 70%),radial-gradient(40% 40% at 92% 18%,rgba(46,78,214,.18),transparent 70%);
+  background-repeat:no-repeat;background-attachment:fixed}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:20;opacity:.07;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.wrap{max-width:1240px;margin:0 auto;padding-block:8px 72px;position:relative}
+a{color:var(--signal);text-underline-offset:3px;text-decoration-thickness:1px}
+a:focus-visible,button:focus-visible{outline:2px solid var(--signal);outline-offset:3px;border-radius:3px}
+h1,h2,h3,h4{text-wrap:balance;margin:0;font-weight:500}
+p{margin:0}
+
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:rgba(10,12,17,.86);box-shadow:0 0 0 100vmax rgba(10,12,17,.86);clip-path:inset(0 -100vmax);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 20px;padding-block:14px;border-bottom:1px solid var(--rule)}
+.mark{font:500 15px/1 var(--sans);letter-spacing:-.01em;color:var(--fg);text-decoration:none}
+nav.tabs{display:flex;gap:2px;flex-wrap:wrap}
+nav.tabs button{font:400 14px/1 var(--sans);color:var(--muted);background:none;border:0;padding:8px 10px;border-radius:6px;cursor:pointer}
+nav.tabs button:hover{color:var(--fg)}
+nav.tabs button[aria-selected="true"]{color:var(--fg);background:var(--signal-soft)}
+
+section.view{padding-top:56px;display:grid;gap:72px}
+.label{font:400 12px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.label .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--signal);margin-right:8px;vertical-align:1px;box-shadow:0 0 10px var(--signal)}
+h2.sec{font-size:clamp(26px,3.6vw,34px);line-height:1.15;letter-spacing:-.02em}
+.block{display:grid;gap:22px}
+
+/* hero */
+.hero{display:grid;gap:22px;padding-top:12px}
+.hero h1{font-weight:400;font-size:clamp(38px,6.6vw,68px);line-height:1.02;letter-spacing:-.035em;max-width:15ch}
+.hero h1 em{font-style:normal;color:var(--signal)}
+.hero .sub{font-size:clamp(17px,2.1vw,19px);color:var(--muted);max-width:58ch;line-height:1.55}
+.contact{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:4px}
+.mail{display:flex;gap:6px;align-items:center}
+.hero .name{font:500 clamp(20px,2.6vw,26px)/1.1 var(--sans);letter-spacing:-.01em;color:var(--fg)}
+.email{font:400 14px/1 var(--mono);color:var(--fg);user-select:all;padding:10px 12px;border:1px solid var(--rule);border-radius:6px;background:var(--panel)}
+.btn{font:500 14px/1 var(--sans);padding:10px 14px;border-radius:6px;border:1px solid var(--rule);background:var(--panel);color:var(--fg);cursor:pointer;text-decoration:none}
+.btn:hover{border-color:var(--signal)}
+.btn.primary{background:var(--signal);border-color:var(--signal);color:#0A0C11}
+
+/* micro / macro */
+.scale{display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:stretch}
+.scale .end{display:grid;gap:8px;align-content:start}
+.scale .end h3{font-size:19px;letter-spacing:-.01em}
+.scale .end p{color:var(--muted);font-size:15px}
+.scale .axis{width:1px;background:linear-gradient(var(--signal),transparent);position:relative}
+.philo{font-size:15px;color:var(--muted);max-width:62ch}
+@media (max-width:640px){.scale{grid-template-columns:1fr}.scale .axis{display:none}}
+
+/* lenses */
+.lenses{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.lens{background:var(--bg);padding:22px;display:grid;gap:10px;align-content:start}
+.lens h3{font-size:20px;letter-spacing:-.01em}
+.lens p.q{color:var(--muted)}
+.lens ul{list-style:none;margin:4px 0 0;padding:0;display:grid;gap:6px}
+.lens li a{font-size:14px;text-decoration:none;color:var(--fg);border-bottom:1px solid var(--rule)}
+.lens li a:hover{color:var(--signal);border-color:var(--signal)}
+.lens li span{font:400 12px var(--mono);color:var(--faint);margin-left:8px}
+
+/* chart */
+.feature{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:24px clamp(16px,3vw,28px);display:grid;gap:14px}
+.feature h3{font-size:clamp(20px,2.6vw,24px);line-height:1.25;letter-spacing:-.015em;max-width:40ch}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend i{width:14px;height:3px;border-radius:2px;display:inline-block}
+.chart-box{overflow-x:auto}
+svg.chart{display:block;width:100%;min-width:520px;height:auto}
+.small{font-size:13px;color:var(--muted);max-width:70ch}
+
+.strips{display:grid}
+.strip{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:baseline;padding-block:18px;border-top:1px solid var(--rule)}
+.strips .strip:last-child{border-bottom:1px solid var(--rule)}
+.strip .label{min-width:120px}
+.now{font:500 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:#0A0C11;background:var(--signal);padding:4px 6px;border-radius:4px}
+.status{font:500 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--s2);border:1px solid var(--s2);padding:3px 6px;border-radius:4px}
+.ghead{display:grid;gap:10px;padding-block:8px 18px;max-width:66ch}
+.ghead h3{font-size:22px;letter-spacing:-.015em}
+.ghead p{color:var(--muted);font-size:15px}
+.group+.group{margin-top:48px}
+article.read figure{margin:6px 0 10px;padding:14px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);display:grid;gap:10px}
+article.read ol,article.read ul{margin:0;padding-left:22px;display:grid;gap:10px;color:#C9CFD9;line-height:1.65}
+article.read ul.sources{font-size:14px;gap:6px;color:var(--muted)}
+article.read figcaption{font-size:13px;color:var(--muted);font-style:italic}
+.strip b{font:500 22px/1 var(--mono);letter-spacing:-.02em}
+.strip span{color:var(--muted);font-size:14px}
+
+/* work, by scale */
+.tier{display:grid;grid-template-columns:170px minmax(0,1fr);gap:8px 32px}
+.tier .head{display:grid;gap:8px;align-content:start;position:sticky;top:72px}
+.track{display:flex;gap:4px}
+.track i{width:22px;height:3px;border-radius:2px;background:var(--rule)}
+.track i.on{background:var(--signal);box-shadow:0 0 8px var(--signal)}
+.tier .head h2{font-size:22px;letter-spacing:-.015em}
+.tier .head p{font-size:13px;color:var(--muted)}
+.items{display:grid}
+.item{padding-block:20px;border-top:1px solid var(--rule);display:grid;gap:6px}
+.item:first-child{border-top:0;padding-top:0}
+.item .who{display:flex;flex-direction:column-reverse;align-items:flex-start;gap:6px}
+.item .who h3{font-size:17px}
+.item .who .when{font:500 13px var(--mono);color:var(--fg);display:inline-flex;align-items:center;gap:10px;font-variant-numeric:tabular-nums}
+.item .org{font-size:14px;color:var(--muted)}
+.item .q{font-size:17px;line-height:1.45;letter-spacing:-.01em;margin-top:4px}
+.item .r{color:var(--muted);font-size:15px;max-width:64ch}
+@media (max-width:700px){.tier{grid-template-columns:1fr}.tier .head{position:static}}
+
+/* recognition */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:1px;background:var(--rule);border:1px solid var(--rule);border-radius:10px;overflow:hidden}
+.stat{background:var(--panel);padding:20px;display:grid;gap:8px;align-content:start}
+.stat b{font:500 30px/1 var(--mono);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat span{font-size:14px;color:var(--muted);line-height:1.45}
+.prose{display:grid;gap:14px;max-width:64ch}
+.prose p{color:var(--muted)}
+
+/* research */
+.entry{padding-block:28px;border-top:1px solid var(--rule);display:grid;gap:10px}
+.entry .meta{display:flex;flex-wrap:wrap;gap:6px 14px;font:400 12px/1.4 var(--mono);color:var(--faint);text-transform:uppercase;letter-spacing:.05em}
+.entry .meta .tag{color:var(--signal)}
+.entry h3{font-size:clamp(21px,2.8vw,26px);line-height:1.2;letter-spacing:-.02em;max-width:36ch}
+.entry p.take{color:var(--muted);max-width:64ch}
+.entry .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+.tbl{overflow-x:auto;margin-top:6px}
+table{border-collapse:collapse;font-size:14px;min-width:560px;width:100%}
+th,td{text-align:left;padding:9px 12px 9px 0;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font:400 11px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+td.n{font-family:var(--mono);font-variant-numeric:tabular-nums}
+td.hi{color:var(--signal)}
+article.read{margin-top:14px;padding:clamp(18px,4vw,36px);background:var(--panel);border:1px solid var(--rule);border-radius:10px;display:grid;gap:16px}
+article.read > *{max-width:66ch}
+article.read .deck{font-size:18px;line-height:1.5;color:var(--fg)}
+article.read p{color:#C9CFD9;line-height:1.72}
+article.read h4{font-size:19px;margin-top:10px;letter-spacing:-.01em;color:var(--fg)}
+article.read .cap{font-size:13px;color:var(--muted);font-style:italic}
+article.read blockquote{margin:0;padding:12px 16px;border-left:2px solid var(--signal);color:var(--fg);font-size:15px}
+article.read .note{font:400 12px var(--mono);color:var(--faint)}
+article.read table{min-width:480px}
+.pitch-img{margin-top:12px;border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.pitch-img img{display:block;width:100%;height:auto}
+
+
+/* wide screens: use the full width */
+@media (min-width:1000px){
+  section.view{padding-top:72px;gap:96px}
+  .hero{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);column-gap:64px;align-items:end}
+  .hero > .label,.hero > .name,.hero > h1{grid-column:1}
+  .hero h1{font-size:clamp(56px,5.6vw,84px);max-width:13ch}
+  .hero > .sub{grid-column:2;grid-row:3;align-self:end}
+  .hero > .contact{grid-column:1 / -1}
+  .scale .end p{max-width:46ch}
+  .feature{grid-template-columns:minmax(260px,340px) minmax(0,1fr);column-gap:40px;align-content:start}
+  .feature > *{grid-column:1}
+  .feature > .chart-box{grid-column:2;grid-row:1 / span 4;align-self:center}
+  .feature h3{font-size:22px}
+  .items{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:32px}
+  .item,.item:first-child{border-top:1px solid var(--rule);padding-top:20px}
+  .tier{grid-template-columns:200px minmax(0,1fr)}
+  .group{display:grid;grid-template-columns:280px minmax(0,1fr);column-gap:48px;align-items:start}
+  .group > .ghead{grid-row:1 / span 20;position:sticky;top:80px;padding-top:28px}
+  .group > .entry{grid-column:2}
+}
+footer{margin-top:80px;padding-top:20px;border-top:1px solid var(--rule);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font:400 12px/1.5 var(--mono);color:var(--faint)}
+@media (prefers-reduced-motion:no-preference){section.view{animation:rise .4s ease-out both}@keyframes rise{from{transform:translateY(8px)}to{transform:none}}}
+</style>
+<style>body{margin:0}*,*::before,*::after{box-sizing:border-box}img{max-width:100%}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <a class="mark" href="#home" data-go="home">Joseph Lapitan</a>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button role="tab" id="tab-home" data-go="home">Home</button>
+      <button role="tab" id="tab-work" data-go="work">Work</button>
+      <button role="tab" id="tab-research" data-go="research">Research</button>
+      <button role="tab" id="tab-recognition" data-go="recognition">Recognition</button>
+    </nav>
+  </header>
+
+  <!-- HOME -->
+  <section class="view" id="home" role="tabpanel" aria-labelledby="tab-home">
+    <div class="hero">
+      <div class="label"><span class="dot"></span>UVA McIntire · Commerce + Economics</div>
+      <p class="name">Joseph Lapitan</p>
+      <h1>Turning how people behave online into <em>decisions</em>.</h1>
+      <p class="sub">I study digital behavior, from a single player's click to a platform's data to a market's prices, and turn it into analysis that product, strategy, and investment teams can act on. My sharpest work is in gaming and Southeast Asia, where those signals are hardest to read.</p>
+      <div class="contact">
+        <div class="mail"><span class="email" id="email-1">tnc4qk@virginia.edu</span><button class="btn" type="button" data-copy="email-1">Copy</button></div>
+        <div class="mail"><span class="email" id="email-2">josephlapitan.jl@gmail.com</span><button class="btn" type="button" data-copy="email-2">Copy</button></div>
+        <a class="btn primary" href="https://www.linkedin.com/in/joseph-lapitan/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="label">How I think</div>
+      <div class="scale">
+        <div class="end">
+          <div class="label" style="color:var(--signal)">Micro</div>
+          <h3>What one person does</h3>
+          <p>A click, a clip, a purchase. The single decision a user makes, and why they made it.</p>
+        </div>
+        <div class="axis" aria-hidden="true"></div>
+        <div class="end">
+          <div class="label" style="color:var(--signal)">Macro</div>
+          <h3>What the data says at market level</h3>
+          <p>Platform metrics, prices, capital flows. The aggregate that teams and investors actually decide on.</p>
+        </div>
+      </div>
+      <p class="philo">The gap between those two is where bad decisions get made: a product call built on the wrong metric, an internal dashboard that hides what users are doing, an asset priced on a signal that doesn't hold up. That gap is what I look for.</p>
+    </div>
+
+    <div class="block">
+      <div class="label">Where it applies</div>
+      <div class="lenses">
+        <div class="lens">
+          <div class="label">Product</div>
+          <h3>Why users share, return, or leave</h3>
+          <ul>
+            <li><a href="#research" data-go="research" data-target="r-clip">The shortform clipping effect</a><span>essay</span></li>
+            <li><a href="#work" data-go="work" data-target="w-medal">Growth research at Medal</a><span>work</span></li>
+            <li><a href="#work" data-go="work" data-target="w-kizuna">Kizuna Esports audience growth</a><span>work</span></li>
+            <li><a href="#research" data-go="research" data-target="r-fans">Why esports struggles to gain new fans: how team media narrows its own market at the top of the funnel</a><span>essay</span></li>
+          </ul>
+        </div>
+        <div class="lens">
+          <div class="label">Data &amp; decision tools</div>
+          <h3>Building the tools other teams rely on</h3>
+          <ul>
+            <li><a href="#research" data-go="research" data-target="r-index">Cross-border price index build</a><span>research</span></li>
+            <li><a href="#work" data-go="work" data-target="w-uva">UVA Esports financial model</a><span>work</span></li>
+            <li><a href="#work" data-go="work" data-target="w-nusa">Nusakademia pipeline tracking</a><span>work</span></li>
+            <li><a href="#work" data-go="work" data-target="w-medal">Medal research reports</a><span>work</span></li>
+            <li><a href="#work" data-go="work" data-target="w-esse">Esse Talent audience data</a><span>work</span></li>
+          </ul>
+        </div>
+        <div class="lens">
+          <div class="label">Strategy &amp; consulting</div>
+          <h3>Turning a messy problem into a decision</h3>
+          <ul>
+            <li><a href="#work" data-go="work" data-target="w-uva">UVA esports facility case</a><span>work</span></li>
+            <li><a href="#work" data-go="work" data-target="w-nusa">Nusakademia go-to-market</a><span>work</span></li>
+            <li><a href="#work" data-go="work" data-target="w-ministry">Indonesia SME policy research</a><span>work</span></li>
+          </ul>
+        </div>
+        <div class="lens">
+          <div class="label">Investing</div>
+          <h3>Which signals hold up, and who captures the value</h3>
+          <ul>
+            <li><a href="#work" data-go="work" data-target="w-gramercy">How reliable are LLM-derived trading signals?</a><span>Gramercy</span></li>
+            <li><a href="#research" data-go="research" data-target="r-index">Cross-border e-commerce thesis note</a><span>research</span></li>
+            <li><a href="#research" data-go="research" data-target="r-pitch">PocketWatch investment pitch</a><span>pitch</span></li>
+            <li><a href="#research" data-go="research" data-target="r-vct">How stipend models discourage brand-building in digital sports leagues: a VCT case study</a><span>essay</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="label">Independent research · Cross-border price index</div>
+      <h3>When the US de minimis exemption ended, AliExpress prices stopped swinging and settled just under the dollar store.</h3>
+      <div class="legend">
+        <span><i style="background:var(--s1)"></i>Baseball cap</span>
+        <span><i style="background:var(--s2)"></i>Socks, 10-pack</span>
+        <span><i style="background:var(--s3)"></i>White crewneck T-shirt</span>
+      </div>
+      <div class="chart-box"><svg class="chart" id="chart" viewBox="0 0 760 330" role="img" aria-label="Price index for three AliExpress items from September 2023 to February 2026. Volatile before May 2025, stable after."></svg></div>
+      <p class="small">Indexed to September 2023 = 100. Promotional prices under $1.50 are left out. A three-item basket, so this is a working hypothesis. <a href="#research" data-go="research" data-target="r-index">Read the thesis note →</a></p>
+    </div>
+
+    <div class="strips">
+    <div class="strip">
+      <span class="label">Southeast Asia</span>
+      <span><b>40K</b> &nbsp;students across 50 Jakarta schools</span>
+      <span><b>$851B</b> &nbsp;Indonesian SME economy, policy research</span>
+      <span><b>SG</b> &nbsp;Kizuna Esports, Singapore</span>
+      <a href="#research" data-go="research" data-target="g-markets">Digital consumer markets →</a>
+    </div>
+    <div class="strip">
+      <span class="label">Gaming</span>
+      <span><b>1 of 150</b> &nbsp;Riot Games Accredited Global Press Partners</span>
+      <span><b>600K</b> &nbsp;views in 10 days, Champions Seoul 2024</span>
+      <a href="#recognition" data-go="recognition">Recognition →</a>
+    </div>
+    <div class="strip">
+      <span class="label">Creator economy</span>
+      <span><b>100K → 1M</b> &nbsp;followers and 300M views across Esse Talent creators</span>
+      <span><b>500K</b> &nbsp;creator reach in Kizuna partner campaigns</span>
+      <span><b>10K</b> &nbsp;followers on X</span>
+      <a href="#work" data-go="work" data-target="w-esse">Esse Talent →</a>
+    </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section class="view" id="work" role="tabpanel" aria-labelledby="tab-work" hidden>
+    <div class="block">
+      <div class="label">Work</div>
+      <h2 class="sec">The same question at three scales</h2>
+      <p class="philo">Each role started with a question. They're grouped by how far from the individual user that question sits.</p>
+    </div>
+
+    <div class="tier">
+      <div class="head"><div class="track"><i class="on"></i><i></i><i></i></div><h2>Micro</h2><p>Users, creators, fans</p></div>
+      <div class="items">
+        <div class="item" id="w-medal">
+          <div class="who"><h3>Medal</h3><span class="when">Jun 2026 – Present <span class="now">Current</span></span></div>
+          <div class="org">Growth Research (Contract) · New York, remote</div>
+          <p class="q">What keeps players coming back to a platform with 20 million monthly users?</p>
+          <p class="r">Behavioral and engagement research that feeds retention strategy and product roadmaps.</p>
+        </div>
+        <div class="item" id="w-esse">
+          <div class="who"><h3>Esse Talent</h3><span class="when">Sep 2024 – Present <span class="now">Current</span></span></div>
+          <div class="org">Strategy Project Manager · Remote</div>
+          <p class="q">How does a creator turn reach into a durable business?</p>
+          <p class="r">Grew creator clients from 100K to 1M combined followers and 300M views, using audience data to plan retention and monetization.</p>
+        </div>
+        <div class="item" id="w-kizuna">
+          <div class="who"><h3>Kizuna Esports</h3><span class="when">Mar 2023 – Sep 2024</span></div>
+          <div class="org">Growth, Management · Singapore, remote</div>
+          <p class="q">How does a grassroots team grow an audience past its competitive fans?</p>
+          <p class="r">Impressions on X up 147% (about 2.5x), from 215K to 530K, and total followers doubled. Closed partnerships with Razer, Fantech, and Gunnar Optiks, with campaigns run through creators reaching 500K followers.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="head"><div class="track"><i></i><i class="on"></i><i></i></div><h2>Meso</h2><p>Organizations, platforms, industries</p></div>
+      <div class="items">
+        <div class="item" id="w-uva">
+          <div class="who"><h3>UVA Esports</h3><span class="when">Jun 2025 – Present <span class="now">Current</span></span></div>
+          <div class="org">Director of Strategic Operations · Charlottesville</div>
+          <p class="q">Should the university invest in a dedicated esports facility?</p>
+          <p class="r">Built the $212K investment case and financial model, projecting 200% ROI, and presented it to UVA leadership including the President's Office.</p>
+        </div>
+        <div class="item" id="w-nusa">
+          <div class="who"><h3>Nusakademia</h3><span class="when">Jan 2026 – Present <span class="now">Current</span></span></div>
+          <div class="org">Consulting, Project Management · Jakarta, remote</div>
+          <p class="q">How do you take an international education program into 50 Jakarta schools?</p>
+          <p class="r">Go-to-market and outreach reaching 40K students, tracked against an 8% conversion target and a $200K revenue goal.</p>
+        </div>
+        <div class="item" id="w-vlr">
+          <div class="who"><h3>VLR.gg</h3><span class="when">Aug 2022 – Present <span class="now">Current</span></span></div>
+          <div class="org">TMT Research Analyst</div>
+          <p class="q">What do the business decisions behind esports mean for the people who watch it?</p>
+          <p class="r">90 reports and 1M+ page views. Where I study consumer behavior most closely. <a href="#recognition" data-go="recognition">Recognition →</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="head"><div class="track"><i></i><i></i><i class="on"></i></div><h2>Macro</h2><p>Markets, capital, policy</p></div>
+      <div class="items">
+        <div class="item" id="w-gramercy">
+          <div class="who"><h3>Gramercy Strategic Capital</h3><span class="when">May – Aug 2026</span></div>
+          <div class="org">Equity Research Summer Analyst · New York</div>
+          <p class="q">Which data signals are reliable enough to act on?</p>
+          <p class="r">AI/quantum computing macroeconomic overview and equity research, including an assessment of the reliability and limits of LLM-derived data signals in institutional trading.</p>
+        </div>
+        <div class="item" id="w-ministry">
+          <div class="who"><h3>Cabinet of Indonesia</h3><span class="when">Feb – Oct 2024</span></div>
+          <div class="org">Macroeconomic Policy Research Analyst · Jakarta, remote</div>
+          <p class="q">How can policy help Indonesia's small businesses grow?</p>
+          <p class="r">Policy research advising for Indonesia's 11th Minister of Cooperatives &amp; Small and Medium Enterprises (SMEs).</p>
+        </div>
+        <div class="item" id="w-index">
+          <div class="who"><h3>Independent research</h3><span class="when">Feb 2026</span></div>
+          <div class="org">Cross-Border E-Commerce Price Index</div>
+          <p class="q">Did cross-border prices change when the US de minimis exemption ended?</p>
+          <p class="r">A biweekly index of AliExpress listings against Dollar General and Dollar Tree equivalents, Sep 2023 to Feb 2026. <a href="#research" data-go="research" data-target="r-index">See the snapshot →</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH -->
+  <section class="view" id="research" role="tabpanel" aria-labelledby="tab-research" hidden>
+    <div class="block">
+      <div class="label">Research</div>
+      <h2 class="sec">Research, essays, and pitches</h2>
+      <p class="philo">Independent analysis of consumer markets, platforms, and games. Every piece can be read here.</p>
+    </div>
+    <div class="group" id="g-markets">
+      <div class="ghead">
+        <div class="label">Digital consumer markets</div>
+        <h3>Cross-border commerce and Southeast Asia</h3>
+        <p>Before Temu and Shein reached the US, Alibaba-backed Lazada and Shopee fought for Southeast Asia with subsidized entry and logistics build-outs. I treat that market as a preview of how Chinese platforms compete in the West.</p>
+      </div>
+      <div class="entry" id="r-index">
+        <div class="meta"><span>Oct 2026</span><span>Working thesis note · Independent research</span><span class="tag">Investing · Macro</span></div>
+        <h3>Cross-border e-commerce: a working thesis note</h3>
+        <p class="take">Was the US de minimis exemption the foundation of Chinese cross-border platforms, or only an accelerant? The note argues the foundation is parent capital, manufacturing scale, logistics, and consumer habit, none of which ended on May 2, 2025. It draws on my own price index, AliExpress's 2026 US plan, the Wish counter-case, and Alibaba's Lazada years in Southeast Asia.</p>
+        <div class="links"><button class="btn primary" type="button" data-read="a-note" aria-expanded="false">Read here</button><a class="btn" href="#home" data-go="home">View the price chart</a></div>
+        <article class="read" id="a-note" hidden>
+          <p class="deck">The long-standing US de minimis exemption was a growth accelerant for Chinese cross-border platforms rather than serving as their foundation. That foundation emerges from a few key factors, including parent-company capital, manufacturing economies-of-scale, emerging logistics infrastructure and consumer habit–yet so far, none of those disappeared when duty-free small parcels from China ended on May 2, 2025. If that is right, platforms like AliExpress, Temu and Shein are better understood as running a long-term market-share strategy in the West than a loss-leader play that a policy change could unwind.</p>
+          <p>The investment angle follows as a question: are domestic discount retailers being valued as if cross-border competition normalized after de minimis, when it may only have changed shape?</p>
+
+          <h4>Why Wish failed, and why Temu and AliExpress needn't</h4>
+          <p>Wish ran an early version of the same model and still collapsed, so the question is what is different now. Whereas Wish was heavily arbitrage-dependent, Temu and AliExpress are instead foundation-dependent.</p>
+          <p>Wish shipped cheap goods directly from Chinese sellers, bought growth with heavy advertising, and funded the gap with venture and then public-market capital. That capital came with Western investor expectations to place Wish on a path to profit on a timeline. When customer acquisition got more expensive and quality complaints mounted, there was no patient backer to absorb years of losses. ContextLogic sold the Wish platform to Singapore-based Qoo10 in 2024 for about $173 million in cash, keeping roughly $2.7 billion in accumulated net operating losses as its main remaining asset (PYMNTS; Retail TouchPoints).</p>
+          <p>Temu and AliExpress sit inside parents with profitable domestic businesses: PDD Holdings (Pinduoduo) and Alibaba. That changes three things:</p>
+          <ol>
+            <li>A parent can treat a Western market as a multi-year investment rather than a unit that must break even on a public-market timeline. Thus, such companies carry longer time horizons aimed away from heavily-covered market catalysts.</li>
+            <li>Both parents already aggregate huge manufacturer and merchant bases in China; the Western storefront thus serves as an extension to market size rather than being a standalone project.</li>
+            <li>When a policy change raises costs, a subsidized platform can restructure fulfillment and keep spending, however a standalone one cuts back to survive.</li>
+          </ol>
+          <p>The Wish comparison works as a rough controlled case given similar consumer value propositions, yet carried a different financial structure and different outcomes. Additionally, Wish also had execution problems of its own, so financial structure is one explanation among several, and the parents' willingness to keep subsidizing is a choice that can change.</p>
+          <p>Two kinds of evidence point the same way: prices settled near domestic discount retail instead of collapsing or spiking out of reach, and the platforms spent more on US infrastructure after de minimis, not less.</p>
+
+          <h4>Emergence of prices as a new ceiling</h4>
+          <p>I built a biweekly price index for a basket of AliExpress items, tracked from September 2023 against comparable items at Dollar General and Dollar Tree. Base = 100 (socks based October 2023). Promotional prices under $1.50 are excluded. A glimpse of it can be seen here:</p>
+          <figure><div class="tbl"><table>
+            <thead><tr><th>Item</th><th>Base</th><th>Apr 2025 (pre-break)</th><th>Feb 2026</th><th>Index, Feb 2026</th><th>Dollar General</th><th>Dollar Tree</th></tr></thead>
+            <tbody>
+              <tr><td>Baseball cap</td><td class="n">$4.20</td><td class="n">$12.64</td><td class="n">$10.30</td><td class="n hi">245</td><td class="n">$10.75</td><td>not carried</td></tr>
+              <tr><td>Socks, 10-pack</td><td class="n">$3.71</td><td class="n">$5.98</td><td class="n">$3.97</td><td class="n hi">107</td><td class="n">$8.50</td><td class="n">$4.00</td></tr>
+              <tr><td>White crewneck T-shirt</td><td class="n">$2.99</td><td class="n">$6.89</td><td class="n">$6.02</td><td class="n hi">201</td><td class="n">$9.00</td><td>not carried</td></tr>
+            </tbody></table></div></figure>
+          <p>Three patterns stand out, evident from month-over-month price observance:</p>
+          <ol>
+            <li>The cap and T-shirt jumped in the weeks before May 2, 2025, suggesting sellers priced in the policy change before it hit.</li>
+            <li>After the break, the cap settled just under Dollar General's price, and the socks settled almost exactly at Dollar Tree's $4.00. Prices more than doubled for two items, but they stopped short of the domestic alternative.</li>
+            <li>Before the break, prices swung widely, with frequent sub-$1 flash prices. After that, month-to-month movement nearly disappeared. In the case of the T-shirt, it sat at $6.02 for six straight months. Simple cost pass-through would shift the level, not calm the volatility.</li>
+          </ol>
+          <p>My working read thus serves to argue for a competitive ceiling for e-commerce: platforms are pricing just below the relevant domestic option, which may be Dollar Tree for commodity basics and Dollar General for slightly more differentiated items. Whilst this price index does not fully prove causation from these vanity goods alone, it serves as a hypothesis to test further across home goods, electronics and beauty.</p>
+
+          <h4>No de minimis, more commitment</h4>
+          <p>The strongest recent signal comes from AliExpress's own 2026 market plan, as reported by Chinese e-commerce outlet ebrun in May 2026 citing official platform data (ebrun) and backed by mainland news sources including Futubull and Sohu.</p>
+          <figure><div class="tbl"><table>
+            <thead><tr><th>Measure (AliExpress US)</th><th>Reported figure</th></tr></thead>
+            <tbody>
+              <tr><td>2026 US market investment</td><td>Expected 2–3x 2025</td></tr>
+              <tr><td>Monthly ad spend</td><td>Approaching $100M (Google, YouTube, Meta, TikTok, Pinterest)</td></tr>
+              <tr><td>Influencer network</td><td>300+ creators</td></tr>
+              <tr><td>Overseas warehouse network</td><td>Expanded 2.5x; hubs in California, Texas, New Jersey</td></tr>
+              <tr><td>Delivery speed</td><td>80% of orders in 5–7 days, about half the previous time</td></tr>
+              <tr><td>Delivery guarantee</td><td>10-day promise, platform pays compensation for delays</td></tr>
+              <tr><td>May 2026 promotion</td><td>GMV up 50%+ YoY; new merchant registrations up 120%</td></tr>
+            </tbody></table></div></figure>
+          <p>The GMV figure covers one promotional window, so it says little about full-year demand. The investment, warehouse and delivery figures matter more, describing a platform building US capacity after the policy change that was supposed to undercut it.</p>
+          <p>Temu tells a messier version of the same story. When de minimis ended, Temu stopped shipping directly from China and moved US sales to locally stocked sellers and US warehouses (CBS News). It also cut US ad spending sharply, and Sensor Tower estimated its daily US users fell 58% in May 2025 (Inside Retail). The evidence thus supports adaptation over an argument of outright immunity, given that the model changed shape under pressure instead of pushing for a full exit.</p>
+          <p>Heavy spending can be read the other way. If the price advantage shrank after de minimis, a platform has to buy back the customers that cheap prices used to win, so rising ad spend may signal rising customer acquisition cost over strength if consumers treat nominal price as higher value compared to domestic options. The two readings also predict different things–if spending is a buying habit, ad spend per order should fall over time while repeat purchase rises. If it is compensating for a lost edge, ad spend per order should stay high or climb. The data does not provide enough to tell these two apart.</p>
+
+          <h4>What would prove it wrong</h4>
+          <p>The thesis fails if Western presence turns out to have depended on the arbitrage after all. Any of these would count against it:</p>
+          <ul>
+            <li>If tracked items settle persistently above their Dollar General or Dollar Tree comparables, the platforms have lost the price position the thesis says they are defending.</li>
+            <li>A sustained cut in US investment, warehouse closures or a retreat in delivery speed would show the subsidy has a limit that policy pressure can reach.</li>
+            <li>If ad spend per order stays high or rises over several quarters while repeat purchase stays flat, the spending is compensation for a lost edge, not habit formation.</li>
+            <li>If weakness in Dollar General's and Dollar Tree's non-consumable categories tracks low-income spending pressure and recovers without any change in platform behavior, the competitive story isn't needed.</li>
+            <li>Tariffs or rules aimed at the platforms themselves, not just small parcels, could raise costs past what a parent will absorb. That would not disprove the foundation argument, but it would cap what the foundation can do.</li>
+          </ul>
+
+          <h4>What's next</h4>
+          <p>The next step is turning claims into measurements, such as proxies that would move one way if the thesis is right and the other way if it is wrong.</p>
+          <figure><div class="tbl"><table>
+            <thead><tr><th>Proxy</th><th>What it tests</th><th>Where it comes from</th></tr></thead>
+            <tbody>
+              <tr><td>Price index, expanded basket</td><td>Whether the competitive ceiling holds beyond apparel</td><td>Ongoing tracking across home goods, electronics, beauty</td></tr>
+              <tr><td>SKU counts tagged as US-stocked</td><td>Whether local inventory keeps growing</td><td>Periodic counts on platform storefronts</td></tr>
+              <tr><td>Quoted delivery windows</td><td>Whether logistics investment is real and sustained</td><td>Recorded at each observation session</td></tr>
+              <tr><td>Warehouse footprint</td><td>Whether infrastructure commitment continues</td><td>Logistics trade press, industrial real estate reports</td></tr>
+              <tr><td>Customs routing</td><td>Whether goods shift to bulk import rather than small parcels</td><td>Trade and freight data</td></tr>
+              <tr><td>Ad spend vs. orders</td><td>Habit formation vs. rising acquisition cost</td><td>Third-party ad and app data, company disclosures</td></tr>
+            </tbody></table></div></figure>
+          <p>Part of the value of US presence may be the consumer data itself: what Americans search for, buy and abandon, fed back to manufacturers and pricing systems. If that is true, platforms should keep spending even when individual orders lose money, and assortment should adapt to US demand faster than a traditional importer could. A testable proxy could be how quickly new US-trending product categories appear on the platform relative to domestic retailers. I have not tested this yet.</p>
+          <p>One question still remains unanswered–if cross-border competition changed shape instead of fading, are Dollar General and Dollar Tree being valued as if the threat passed? In my reading of their recent annual and quarterly filings, neither names Chinese e-commerce as a competitive threat; both attribute non-consumable weakness to pressure on lower-income shoppers. That explanation may be right. The evidence here is circumstantial, and closing that causation gap would take consumer spending data that price cannot fully explain.</p>
+
+          <h4>The Southeast Asia preview</h4>
+          <p>Alibaba has already run this playbook once, in Southeast Asia. It took a majority stake in Lazada in 2016, raised it to 83% the next year in a deal near $1 billion (TechCrunch), and kept injecting capital, more than $1.8 billion in 2023 alone (Inside Retail).</p>
+          <p>The outcome is instructive in both directions. Parent capital kept Lazada in the market for a decade. But it did not guarantee leadership, as Sea-backed Shopee became the region's dominant platform, and by 2022 Lazada drew roughly half of Shopee's monthly visitors (Dao Insights). Then TikTok Shop arrived with a content-driven model and took share from both.</p>
+          <p>That is the most useful lesson for the West. Subsidized entry plus logistics buys staying power, not victory, and the winner may be whoever pairs capital with a better read of local consumers. Southeast Asia is where that contest has already played out, which makes it the best preview of how it may go in the US.</p>
+
+          <h4>Sources</h4>
+          <ul class="sources">
+            <li>Price index: author's own biweekly tracking of AliExpress listings vs. Dollar General and Dollar Tree, Sep 2023–Feb 2026</li>
+            <li><a href="https://english.ebrun.com/20260526/669566.shtml" target="_blank" rel="noopener">ebrun: AliExpress unveils 2026 growth plan</a> (May 26, 2026; cites official AliExpress data)</li>
+            <li>CBS News: Temu halts China shipments to US as de minimis ends</li>
+            <li>Inside Retail Asia: Temu daily US users halve after de minimis</li>
+            <li>PYMNTS: ContextLogic to sell Wish to Qoo10</li>
+            <li>Retail TouchPoints: Wish sold to Qoo10 for $173 million</li>
+            <li>TechCrunch: Alibaba raises Lazada stake to 83%</li>
+            <li>Inside Retail Asia: Alibaba injects $634M into Lazada</li>
+            <li>Dao Insights: Alibaba injects capital into Lazada</li>
+          </ul>
+        </article>
+      </div>
+      <div class="entry" id="r-ministry">
+        <div class="meta"><span>Feb – Oct 2024</span><span>Policy research</span><span class="tag">Strategy · Macro</span></div>
+        <h3>Indonesia SME policy research</h3>
+        <p class="take">Policy research advising for Indonesia's 11th Minister of Cooperatives &amp; Small and Medium Enterprises (SMEs), on Indonesia's $851B SME economy.</p>
+        <div class="links"><a class="btn" href="#work" data-go="work" data-target="w-ministry">See in Work</a></div>
+      </div>
+    </div>
+
+    <div class="group" id="g-gaming">
+      <div class="ghead">
+        <div class="label">Gaming</div>
+        <h3>Where I study consumer behavior most closely</h3>
+        <p>Games and esports produce some of the clearest behavioral data online: what people share, who they follow, and what they pay for. These essays use that data to explain growth, loyalty, and incentive design.</p>
+      </div>
+
+      <div class="entry" id="r-clip">
+        <div class="meta"><span>Jun 2026</span><span>Essay · written for Medal's blog</span><span class="tag">Product · Micro</span></div>
+        <h3>The shortform clipping effect: why some games grow without a marketing budget</h3>
+        <p class="take">Several indie hits grew almost entirely through players sharing short clips. Games built around shared, multiplayer moments clip well, while long single-player stories grow through recommendation. What decides how far clips travel is the friction between the moment and the share.</p>
+        <div class="links"><button class="btn primary" type="button" data-read="a-clip" aria-expanded="false">Read here</button></div>
+        <article class="read" id="a-clip" hidden>
+<p>Within less than a month, Meccha Chameleon has become the new indie darling of the gaming industry. The title's explosive success, translating to over 10 million copies sold since its early June launch, came about with its developers spending almost nothing on traditional marketing. It joins a growing list of titles that have achieved the same outcome through the same mechanism, following the path of indie hits Lethal Company and R.E.P.O who have each amassed over 200,000 peak concurrent players despite low marketing overhead.</p>
+<p>Short-form gameplay clips–like those shared across Discord servers and TikTok feeds–have emerged in tandem as one of the most powerful and least examined growth drivers in the games industry. When applied to the aforementioned titles, growth traces back to how clips involve players sharing moments with each other.</p>
+<h4>The games that clip themselves</h4>
+<p>A recognizable category has emerged among the titles that grow this way, in that their core game loop consistently produces moments players inherently want to share by structure. When looking at clips of impossible hands in Balatro or Among Us outplays, you find that these moments are produced by the design itself. Combining this design quality with zero conversion friction, as seen with Content Warning’s free-24-hour-launch, games easily reach millions of players almost entirely through clip culture before a single paid placement runs.</p>
+<p>But not every game’s growth is the same. There’s an important causal question to answer first:</p>
+<h4>Does clipping drive growth, or does growth drive clipping?</h4>
+<p>Trick question! The honest answer is both–clipping drives growth, and growth drives clipping. What is worth taking away though is that direction matters less than what follows.</p>
+<p>Lethal Company and Meccha Chameleon had no existing audience before launch. Clip culture was the primary discovery mechanism from day one with nothing else explaining the growth curve. Helldivers 2 ran the other way, with its launch following a traditional marketing path that exceeded its own internal projections almost immediately. The resulting influx of concurrent players created the density of activity that generated clip culture naturally.</p>
+<figure><blockquote>“Hard to say! I never understood why it would be a secret. We are blowing through the estimates at least...” <span class="note">@Pilestedt, Feb 10, 2024</span></blockquote><figcaption>Johan Pilestedt, Helldivers 2 creative director, on expectations of units sold upon release Either direction produces the same network effect. Once clip culture forms around a game, it compounds: each clip reaches new potential players who become players who generate more clips, and this compounding rate is what matters commercially more than what triggered it.</figcaption></figure>
+<h4>Why organic clips travel further</h4>
+<p>Not all clipping produces the same outcome. In an era where consumers are increasingly resistant to paid placement, the most commercially valuable form of reach is purely organic with no coordination or incentive behind the share.</p>
+<figure><div class="tbl"><table><thead><tr><th>Evaluation metric</th><th>Traditional “push” marketing (AAA)</th><th>Organic “pull” clipping (indie)</th></tr></thead><tbody>
+<tr><td>Primary channel</td><td>Industry conferences; trailers; paid influencers</td><td>Decoupled social peer networks (TikTok; Discord)</td></tr>
+<tr><td>Audience mindset</td><td>Expectant; high skepticism</td><td>Passive / high trust</td></tr></tbody></table></div><figcaption>Structural trust shapes user acquisition before a game is even downloaded</figcaption></figure>
+<p>The reason comes down to what clips actually are when they travel through social networks. Sharing a clip is as much a social act as an informational one, as people share moments because doing so signals something to their network. The game growth that follows is a secondary effect of players incorporating game moments into their social behavior. That signaling function is why organic clips convert differently than paid or incentivized ones.</p>
+<p>Contrast this with studio-led paid influencer programs, aimed at manufacturing the same effect organic sharing produces. The clips can look similar on the surface, but conversion tends to lag because the signal itself is different. A viewer can tell, consciously or not, when a clip exists because someone found a moment worth sharing versus because someone was paid to produce one. The social currency that makes organic clips travel doesn't transfer as easily when the post is incentivized, which is part of why simply paying for more clips isn't always a reliable substitute for designing a game that produces shareable moments on its own.</p>
+<h4>Why some games don't clip</h4>
+<p>Not every game can produce a clippable moment, even with the pedigree and marketing machine to put it in front of millions of people.</p>
+<p>In Marathon’s case, the parts of it that were designed to be shared worked exactly as intended; take the game’s cinematic reveal trailer, which was widely praised for its art direction that led to genuine consumer excitement. That created an inherently clip-worthy asset by design, and it traveled the way clip-worthy assets do–but the actual gameplay didn't carry the same legibility once revealed by Bungie.</p>
+<figure><div class="tbl"><table><thead><tr><th>Marathon trailer</th><th>YouTube views</th><th>Likes</th></tr></thead><tbody>
+<tr><td>Cinematic reveal</td><td class="n">2.8M</td><td class="n">146K</td></tr><tr><td>Gameplay</td><td class="n">1.3M</td><td class="n">26K</td></tr></tbody></table></div><figcaption>Despite Marathon’s gameplay trailer having half of the cinematic’s views on YouTube (1.3M v. 2.8M), the former received just 17% of the cinematic’s likes (26K v. 146K) Clips are, by definition, a brief yet understandable self-contained moment. A game whose appeal depends on cumulative investment over hours doesn't produce many of those moments naturally, no matter how good the underlying experience turns out to be.</figcaption></figure>
+<h4>Not every game needs to</h4>
+<p>It's worth being honest that clip-driven growth isn't a universal lever, and games still succeed on entirely different terms. Take Expedition 33: by virtue of design as a single-player experience, it places its focus on story over discrete shareable moments. Its commercial success doesn't trace back to clip culture in the way Meccha Chameleon-esque games do, which is less so a flaw and instead a different growth mechanism reminiscent of traditional word-of-mouth review.</p>
+<p>The pattern across the games that do clip well is consistent: multiplayer, co-op, or socially witnessed moments. A clip travels furthest when there's an audience built into the moment itself (like another player in-game or in voice chat) who experienced it alongside the clipper and gives the share its social weight. Single-player narrative games can absolutely go viral, but the mechanism is closer to recommendation than to clip culture, and the growth lever publishers should be reaching for depends on which category their game actually falls into.</p>
+<h4>The industry divergence</h4>
+<p>TikTok and YouTube Shorts have changed the structural conditions of discovery in a way that didn't exist five years ago, as content from zero-follower accounts now reaches audiences as large as content from established creators if it generates engagement. Thus, algorithmic equalization means a game where players consistently produce clip-worthy moments can generate discovery through completely unknown players without requiring influencers or paid promotion, which levels the playing field for developers large and small.</p>
+<p>The games that have benefited most are indie titles with small marketing budgets, largely because their economics required it. Indie games aren't inherently more clip-worthy as a category: but for an indie developer, clip-worthy design is closer to a necessity, serving as the difference between standing out and disappearing among thousands of other launches.</p>
+<p>At the high end, this same dynamic shows up as a gap. Several major launches have spent more on marketing alone than the entire development cost of indie titles that went on to outperform them on long-term player acquisition. The difference in the latter lies in how clip-worthy design produced spontaneous discovery continuously throughout a game's life.</p>
+<h4>What this means going forward</h4>
+<p>For a growing number of titles today, clipping acts as the mechanism behind success. Clip culture reaches audiences traditional marketing can't access, and the cyclical nature of shortform content sustains discovery over the long-term. Whether intentional or not, the games that have demonstrated this most clearly all incorporate shareability through clips by design.</p>
+<p>However, all of it depends on one variable: friction. The moment between having a clip-worthy experience and sharing it needs to be as short as possible to maximize sharing power. Every additional step between the moment occurring and the clip being distributed reduces the volume of social currency being generated around a game.</p>
+
+        </article>
+      </div>
+
+      <div class="entry" id="r-fans">
+        <div class="meta"><span>2026</span><span>Essay · posted on X</span><span class="tag">Growth · Meso</span></div>
+        <h3>Why esports struggles to gain new fans: how team media narrows its own market at the top of the funnel</h3>
+        <p class="take">Esports titles have nearly 300 million monthly players, but their biggest events peak at 16 million viewers. Most team content assumes the viewer already cares. Because new fans can go to any team, no single organization has a reason to make content that brings them in.</p>
+        <div class="links"><button class="btn primary" type="button" data-read="a-fans" aria-expanded="false">Read here</button></div>
+        <article class="read" id="a-fans" hidden>
+          <p class="deck">Esports teams have long made content that feels right to the team itself. That habit cuts off the top of the funnel: the casual viewers who could become fans are never given a way in.</p>
+<p>The five most popular esports titles cumulatively boast nearly 300 million active monthly players globally. The peak concurrent viewership across their most-watched events in 2025 sits at 16 million.</p>
+<p>That is a 95% gap between the people who play the game and the people who watch it competitively, which isn't explained by a lack of content on its own. Competing organizations across these titles collectively produce hundreds of videos and social media posts every month.</p>
+<p>Simultaneously, it isn't explained by a lack of awareness either. League of Legends, Mobile Legends, Counter-Strike, DOTA 2, and Valorant are all the most well known titles for their respective game genres with genuine global penetration across every major gaming market. Rather, the gap exists because of how the content is built relative to who it's actually built for. Almost none of it is addressed to someone who doesn't already care.</p>
+<p>Every content audience operates in layers. At the apex of the content pyramid sits what we’ll call superfans: these are the people who consume everything. They buy merchandise and would even watch their organization lose a scrim if the footage existed. Below them sit fans, who are regular viewers with genuine attachment who engage selectively. At the base sit casual viewers. These are people with passing interest, domain-adjacent curiosity, or no prior exposure at all who might convert into fans given the right entry point.</p>
+<p>The issue is that most esports content is produced at the apex and distributed as though the entire pyramid is watching.</p>
+<p>Consider two specific examples from the current VCT ecosystem, who will be used as specific examples of the overarching problem across the industry.</p>
+<p>GIANTX's "Valorant Pros Guess The Radiant" generated 669 views in three weeks on a partnered VCT organization's YouTube channel. The content concept requires the viewer to understand multiple things intuitively: how Valorant's ranked system works, to recognize and care about the players featured, and to find the skill gap between rank tiers entertaining rather than opaque.</p>
+<p>That's three distinct prerequisites a casual viewer doesn't meet. None of them are addressed by the content before asking for the viewer's attention. The result, less than 1000 views on a video which likely saw oversight by an entire production team, is the measurable output of producing exclusively for the apex of the pyramid on a channel with no architectural mechanism for reaching anyone below it.</p>
+<p>100 Thieves' "We Tried Baking With No Hands ft. Sunny, NiceWigg, and Ellum" generated 8,500 views in six months. This is a different failure mode.</p>
+<p>This specific form of content doesn't require game fluency, as the format is universally legible. Instead, the underlying failure here is one of parasocial prerequisite. The value proposition is watching three specific personalities interact, which only works if the viewer already has parasocial investment in those personalities. Sunny, NiceWigg, and Ellum have individual audiences, but the overlap between those audiences and a general viewer discovering 100 Thieves' channel for the first time is narrow enough that the content produces almost no new audience development despite being produced by one of the most recognizable esports org brands in existence.</p>
+<p>Both of these pieces fail at the same structural point. Neither has a cold entry point for casual viewers, in this case being a mechanism that gives someone who doesn't already care a reason to start caring before domain fluency or prior parasocial investment is required.</p>
+<p>The absence of cold entry points in gaming content is the output of three compounding psychological and architectural failures that individually would be manageable and collectively produce the audience development ceiling the industry is running into.</p>
+<p>The first and most overlooked one is parasocial formation requirements. Parasocial attachment, which is the sense of familiarity and connection an audience develops with a creator or personality, doesn't form from a single exposure. It requires repeated contact with consistent identity signals over time, which can take anywhere from multiple months or years. A viewer who finds one piece of esports content mildly interesting has no reliable psychological pathway back to the next piece if the identity signal isn't strong enough to create active return behavior.</p>
+<p>Most esports organization content fails this test not because individual pieces are poor quality, but because the production cadence is too irregular and the format too inconsistent to build the repetition parasocial formation requires. YouTube channels with strong parasocial formation work because the viewer knows exactly what they're going to get before clicking. The consistency of the identity signal is what builds the return habit, not the quality of any individual video.</p>
+<p>Almost every larger YouTube channel has one collective identity that locks in the kind of viewer they want to interact with the content repeatedly. Whether it’s the actual kind of content being produced or the personality that creates the content, each new concept and video being uploaded forms a greater sense of identity signaling. The creator's consistent identity confirms their own taste and self-perception each time they click.</p>
+<p>Each video extends the parasocial relationship because the viewer knows precisely what they are signing up for before clicking. The consistency is the product as much as the content itself. In contrast, esports organization content almost never achieves this. Their channels might publish a player interview one week, a match highlight the next, a sponsored activation the week after, and a vlog two weeks later.</p>
+<p>Each piece may be competently executed. Yet, none of them cumulatively build a coherent identity signal because the viewer has no reliable model of what the channel represents or what they will get from returning to it. Without that model, parasocial formation stalls. The viewer who found one video mildly interesting has no psychological reason to seek out the next one.</p>
+<p>The second is what might be called the narrative architecture deficit. Traditional sports content has built-in narrative structure, whether it be the season arc or the championship stakes. This structure is accessible to casual viewers without domain expertise because the human drama is legible independent of tactical knowledge. A casual viewer doesn't need to understand basketball's pick-and-roll to feel the stakes of a game seven elimination. Esports content almost never builds equivalent narrative architecture because the infrastructure for it either doesn't exist or hasn't been invested in. While this failure may be a result of the underlying league structure in each of these titles, content without a clear payoff structure will still lose casual viewers who don't have domain loyalty to sustain attention through an unclear middle.</p>
+<p>As former NRG content strategist Seth Fowler said, every video needs a why — a reason the audience stays from beginning to end. Most esports content doesn't answer that question for someone who doesn't already know why the players involved matter.</p>
+<p>The third is the universal legibility gap. Some content formats work for strangers to the domain. Others require fluency. The distinction here changes from production quality or format length into a question of whether the value proposition is accessible without prior context.</p>
+<p>Jubilee's content works for audiences unfamiliar with every topic they cover because the format engine is social conflict and perspective difference. These are universally legible psychological triggers that require no domain knowledge to find compelling.</p>
+<p>Naturally, a Jubilee video about Valorant pros would be watchable by someone who has never loaded the game because the drama is human first and domain-specific second. When this mechanism appears in esports content through genuine rivalry and personality conflict with real stakes, it performs anomalously well compared to skill demonstration content. The signal is consistent across every instance it appears. The deliberate deployment of the mechanism is almost nonexistent.</p>
+<p>These content failures described aren't failures of organizational intelligence or creative ambition. They're rational responses to a specific incentive environment that makes casual audience development economically irrational for any individual organization operating within it.</p>
+<p>The mechanism is a classic public goods problem. Casual audience development produces spillover benefits that aren't fully capturable by the organization making the investment. If 100 Thieves produces content that successfully converts a casual gamer into an esports viewer, that viewer is available to become a fan of any organization: Sentinels, NRG, Team Liquid, or whoever happens to be winning when they first engage with competitive esports. The returns on casual audience development investment partially leak to every competitor in the ecosystem.</p>
+<p>The rational individual decision, given this structure, is to produce content for existing fans where the returns are capturable rather than casual audience development content where the returns dissipate. No individual organization is making the wrong decision given their incentive environment. The ecosystem is producing the wrong aggregate outcome because no individual actor has sufficient incentive to solve a collective problem unilaterally.</p>
+<p>But this dynamic compounds through two additional structural failures.</p>
+<p>Platform mismatch means even well-intentioned audience development content rarely reaches the audience it was designed for. Most esports organizations produce content primarily for YouTube with format lengths and production styles calibrated to an existing subscriber base. TikTok's algorithm surfaces content to new viewers regardless of follow relationships based on engagement signals: it's architecturally designed for cold audience discovery. The content format that would actually reach casual viewers is short, personality-driven, and native to discovery-oriented platforms. It's the content most organizations produce least, partly because it doesn't fit the production workflows optimized for YouTube and partly because its performance against an existing subscriber base looks weak relative to superfan-optimized content on the same channel.</p>
+<p>100 Thieves has picked up on the signals of shortform algorithm virality and have aligned themselves with two of the above nodes to incentivize high-performing content. The rebranded “guess the rank” format, shortened down into sub-minute videos in a real-life setting, allows viewers to engage with the players in terms of personality put into a context that any viewer can understand. Subsequently, they’ve consistently created a recurring series in “VALORANT abilities explained in Jujutsu Kaisen terms” – this format allows for viewer retention due to consistency and a formed identity. Put together, you can see how exactly their shortform has been doing, contrasted with the two reels at the very end who performed significantly worse before this pivot.</p>
+<p>Algorithmic lock-in compounds the platform mismatch further. Platform algorithms build probabilistic audience models based on accumulated engagement history. An organization that has produced superfan-optimized content consistently for two years has trained the algorithm to distribute its content to a specific narrow demographic. Those are existing competitive esports followers and hardcore fans of specific players.</p>
+<p>When the same organization attempts to publish cold entry point content, the algorithm distributes it to the audience it already built a model for. The casual viewer the content was designed to reach never sees it. The content underperforms against the existing superfan audience's engagement benchmarks, which the algorithm reads as poor performance, which further narrows subsequent distribution. The organization's own engagement data then tells them the casual audience development content didn't work, without revealing that the distribution infrastructure never gave it a realistic chance.</p>
+<p>The production value trap closes the loop. Organizations invested heavily in visible quality signals, like cinematic trailers, high-end match highlights or even documentary-style content, that demonstrate production capability to sponsors and impress existing fans without solving the cold entry point problem.</p>
+<p>High production value on content requiring domain fluency doesn't convert casual viewers regardless of how well-executed it is. The investment compounds into the wrong variable because the evaluation criteria like sponsor perception metrics and existing fan engagement rates reward visible production quality rather than casual audience development effectiveness.</p>
+<p>A small number of VCT organizations have built genuine cross-audience content reach. Examining them precisely is more analytically useful than acknowledging them as exceptions, because what they have in common reveals the specific ingredients the failing majority lacks.</p>
+<p>Karmine Corp and ZETA DIVISION represent the geographic identity mechanism. Their content works for audiences with no Valorant fluency because national and regional identity provides a parasocial proxy: this is a reason to care that doesn't require domain knowledge. A French viewer encountering KC content doesn't need to understand the VCT standings to feel the pull of supporting something that represents their culture and speaks their language in a space dominated by American and Korean organizations. That's a cold entry point built on pre-existing psychological infrastructure that KC didn't create through content strategy. They arrived with it, having spent years cultivating a specifically French cultural identity before the economics of esports partnership made that investment more complex. The content is the output of identity investment that preceded it. Organizations attempting to replicate the outcome through content strategy alone are solving the wrong problem.</p>
+<p>Where fandom is geographically concentrated, network effects amplify individual fan value. Being a KC fan in France means your fandom is a shared social experience with the people around you — the density of the community makes membership more valuable. Most VCT partner organizations don't have this because their fandom is geographically dispersed and player-attached rather than organizationally anchored. When the player whose performance generated the attention departs, the network effect dissipates from the organization's perspective without leaving organizational identity infrastructure behind.</p>
+<p>The content pieces that cross audience boundaries share three structural properties regardless of format, production budget, or organizational size. They require a cold entry point that resolves viewer uncertainty before domain fluency is required. A narrative architecture with a clear payoff structure legible without prior investment. A personality or conflict mechanism that generates human drama independent of tactical content.</p>
+<p>Within the esports ecosystem, Paper Rex's documentary content and certain APAC organizational storytelling approaches demonstrate all three properties operating simultaneously to create one of the first real examples of successful esports content. Geographic and cultural identity provides the cold entry point, consistent team narrative provides the architecture, and personality-driven content provides the human drama layer. Their bundle performance relative to organizations with comparable competitive results reflects the audience development infrastructure difference precisely.</p>
+<p>The esports industry produces more content than at any point in its history. Almost none of it is addressed to the people who don't already care about your team, and making more content won’t fix it without getting at the underlying problem. It is instead an architecture problem, and more content produced within the existing architecture makes it worse rather than better.</p>
+          <p class="note">Charts and screenshots from the original post are not reproduced here. <a href="https://x.com/SeulgiVLR" target="_blank" rel="noopener">@SeulgiVLR on X</a></p>
+        </article>
+      </div>
+
+      <div class="entry" id="r-vct">
+        <div class="meta"><span>2026</span><span>Essay · posted on X</span><span class="tag">Investing · Meso</span></div>
+        <h3>How stipend models discourage brand-building in digital sports leagues: a VCT case study</h3>
+        <p class="take">Riot's stipend model pays teams for stability, which makes building a brand that outlasts its players economically irrational. Revenue is rising while viewership falls, and the 2027 partner review is the chance to reward fan loyalty that belongs to the team.</p>
+        <div class="links"><button class="btn primary" type="button" data-read="a-vct" aria-expanded="false">Read here</button></div>
+        <article class="read" id="a-vct" hidden>
+          <p class="deck">The Valorant Champions Tour is reaching a critical inflection point in 2027. To ensure the next 10 years of Valorant are a success, Riot needs to address how their stipend model creates perverse incentives that threaten long-term brand equity.</p>
+<p>Since 2020, Riot has promised the Valorant ecosystem one thing: stability. Leveraging lessons from a decade operating League of Legends, the VCT offered organizations guaranteed revenue through stipends, professional infrastructure, and predictable competitive structure. It worked. Partnership organizations invested heavily through championship-caliber superteams, state-of-the-art facilities. The VCT became exactly what Riot promised: a structurally sound, publisher-backed competitive league.</p>
+<p>But stability for organizations is not the same as stability for the ecosystem. Ask yourself: if your favorite VCT team lost their entire roster today, would you still have a reason to care about them? For most fans, the answer is no. The gap which exists between fiscally sound organizations and fans lacking attachment to the teams themselves is the VCT's defining structural problem heading into 2027. As it stands right now, Riot’s stipend model funds a system that makes investing in brand-building economically irrational.</p>
+<p>Prevailing organizational rationale treats fan attention as a passive yield of competitive success. However, it is everything but passive: fanbases are assets that require active investment to convert into lasting branding. Organizations that field winning rosters without investing in organizational identity generate attention they cannot keep long-term. The moment the player carrying that attention departs, fanbases walk out with them. After TenZ retired, Sentinels faced such a dilemma. Data from the Sentinels Invitational event show a 70% drop in viewership from its 2023 to 2025 iterations, where TenZ played in the former while the latter saw an entire roster overhaul. This is the predictable output of a system where competitive rosters are thought to be the sole retainer of fan loyalty.</p>
+<p>Such behavior arises when incentives mismatch. Organizations looking to survive the high cost of entry associated with the scale of the VCT look to extract value, while Riot aims for value creation. It is this process of unbridled stipends which systematically creates a pattern of rent-seeking behavior by design, and perhaps no single episode better illustrates this brand-building failure than the 2024 VCT team bundles.</p>
+<p>2024’s known data shows that a small cohort of organizations succeeded spectacularly from the likes of Paper Rex, ZETA DIVISION, Karmine Corp, and Gentle Mates. Each organization has spent years cultivating identity and following to back up Riot’s hallmark that fans who buy bundles are like those who buy jerseys in support of their club. While they proved that the model works, it only does so if invested into.</p>
+<p>They were the exceptions. Some VCT partners saw anemic bundle sales that exposed an uncomfortable truth, in which most fans didn’t care about the jersey but rather only the players wearing it. Rather than interpret this as a failure of their own brand-building efforts, these organizations blamed the product.</p>
+<p>Sources within the industry can attest that team complaints to Riot centered on disappointment with final designs and supposed “favoritism” to select organizations. The proposed solution: standardized team bundles designed to lower the bar so that organizations without distinctive brands could still generate revenue.</p>
+<p>Yet, in spite of standardization, the organizations that had built brands continued selling even with the new 2025 designs. Karmine Corp and Paper Rex’s bundle dominance only required fans who would buy anything they pushed. Meanwhile, organizations who lobbied for standardization still couldn’t sell, because the problem was never design complexity. The issue lies in having spent years not giving fans a reason to care outside of players.</p>
+<p>Existing public information uncovers the dysfunction despite obscure aggregate figures. Shared revenue grew 34% year-over-year from $78.4M to $105.2M, which includes digital goods–like team bundles and season capsules–alongside stipends and prize pools. From digital goods alone, shared revenue sharply rose from $44.3M to $86M over the same time period. Almost paradoxically however, non-China peak viewership declined approximately 12% from Masters Madrid 2024 to Champions 2025, falling from 1.673M to 1.473M.</p>
+<p>The primary driver behind the divergence appears to be further expansion into China. 2025 marked the first year of full Chinese capsule sales, a one-time market expansion that Riot's own statements acknowledged as a “uniquely strong year.” Stripped away, the underlying trajectory is a declining viewership base with revenue concentrated among a small group of organizations that built brands worth buying. The majority did not. Riot’s admission of 2025 serving as an outlier year shows that the model does not incentivize long-term identity investment. Short-term gains are only celebrated because it makes the partnership structure look sustainable on paper.</p>
+<p>Beyond bundles, complicity still holds. In late 2024, Sheep Esports reported that the VCT incentive program specifically designed to reward content creation was quietly eliminated. The program revealed exactly what was understood about the ecosystem’s needs–teams required monetary incentives to invest in fan engagement because the base stipend didn’t reward it. And for all it stood for, it was sunsetted. By effectively saying there is no immediate need to push for brand creation, Riot has caved into the market failures that slowly eat away at the VCT’s moat.</p>
+<p>This rent-seeking dynamic is slowly building towards an existential crisis for the VCT that will materialize early within the next decade. Today’s viewership skews heavily toward Gen Z, who watch primarily for gameplay and player personalities but not organizational loyalty. Gen Alpha is just discovering competitive Valorant. Neither cohort is forming the kind of tribal team allegiance that sustains traditional sports across generations. When you ask a 14-year-old VCT fan who they support, they’ll often name a player (based on the team they’re on) instead.</p>
+<p>This should terrify every VCT stakeholder.</p>
+<p>The core risk is that Gen Alpha, entering their peak consumption years by early 2030, will arrive having never been given a reason to form such attachments simply because organizations competing for loyalty spent a decade solely optimizing for competitive standing. By then, the average viewer views teams as dispensable homes for their favorite players. If the VCT hasn’t captured team loyalty by then, what happens when new tactical shooters emerge?</p>
+<p>Viewers will leave. The teams are not loved, and consumers instead love the game and its top players. Whilst traditional sports leagues have moats measured in generations, the VCT is building no such moat even on a smaller scale. The organization fans cheer for today will likely be irrelevant in 2030 if the roster turns over, and in esports, turnover is guaranteed.</p>
+<p>The criteria for 2027’s partnership reevaluation matters immensely. If Riot evaluates partners based on current stipend criteria emphasizing stability, then the cycle repeats. Conversely, if Riot evaluates partners based on fan engagement metrics that can be attributed to organizations rather than individual players, then organizations will suddenly have reason to invest in brand-building. But this would require Riot to admit the current model has failed to create sustainable team brands, and shareholder incentives make such admissions difficult.</p>
+<p>Defenders will argue that partnership was meant to solve financial instability rather than maximize brand equity, and they're right. The VCT achieved its stated goals: organizations are solvent, competition is stable, and the league functions. But organizational solvency and ecosystem health are not synonymous. Stipends created a comfortable stasis where organizations rationally extract value rather than create it. The league still appears healthy regardless; teams field competitive rosters and everyone collects checks. That all lasts until the generation that never formed emotional attachments moves on to whatever's next.</p>
+<p>If deemed to be in the league’s best interest, then the VCT can continue acting as a subsidized marketing expense. But for esports to sustainably mature in the long term, the economics must eventually support themselves or else investment dies down across the board.</p>
+<p>Riot can continue rewarding the status quo. Or they can acknowledge that the next 10 years of VCT require something fundamentally different: incentive structures that make building generational brand loyalty a necessity. But as is, they are complicit in this pattern by choosing to celebrate short-term metrics rather than confront the long-term structural weaknesses their stipend model has created.</p>
+<p>Partnered organizations aren't paid to not care about Valorant. They do care deeply about competitive success and seeing the game succeed. But they are paid in a way that makes caring about fan loyalty financially unviable, even if such efforts can increase lifetime value for Tencent and teams alike. Until that changes, the VCT is building a castle on sand, hoping the tide never comes in.</p>
+<p>But inevitably, the tide always comes in.</p>
+          <p class="note"><a href="https://x.com/SeulgiVLR" target="_blank" rel="noopener">@SeulgiVLR on X</a></p>
+        </article>
+      </div>
+
+    </div>
+
+    <div class="group" id="g-pitch">
+      <div class="ghead">
+        <div class="label">Pitches</div>
+        <h3>Investment theses on one page</h3>
+      </div>
+      <div class="entry" id="r-pitch">
+        <div class="meta"><span>Sep 2025</span><span>Investment pitch · one-pager</span><span class="tag">Venture · Meso</span></div>
+        <h3>PocketWatch: creator IP as kids' franchises</h3>
+        <p class="take">The thesis question: can creator-led kids' content be licensed into franchises the way traditional studios license characters? PocketWatch turns creator IP into retail, TV, and streaming deals. The pitch weighs roughly $100M in revenue on $22M raised against Moonbug's $3B sale to a Blackstone-backed buyer as a comparable.</p>
+        <div class="links"><button class="btn primary" type="button" data-read="pitch" aria-expanded="false">View the one-pager</button></div>
+        <div class="pitch-img" id="pitch" hidden><img src="pocketwatch-pitch.jpg" alt="PocketWatch investment pitch one-pager with audience, traction, financial summary, investment thesis, moat, competitor table, and exit comparables." loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECOGNITION -->
+  <section class="view" id="recognition" role="tabpanel" aria-labelledby="tab-recognition" hidden>
+    <div class="prose">
+      <div class="label">VLR.gg · TMT Research Analyst · Aug 2022 – Present</div>
+      <h2 class="sec">Where the analysis started</h2>
+      <p>I started covering the esports industry in 2022 on VLR.gg, the main community site for competitive Valorant. Writing about the business decisions behind teams, leagues, and publishers is how I learned to read how audiences, platforms, and money move together. The work earned accreditation from Riot Games as one of its global press partners.</p>
+      <p>My independent analysis since then is in <a href="#research" data-go="research">Research</a>.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>90</b><span>reports published on VLR.gg</span></div>
+      <div class="stat"><b>1M+</b><span>total page views on VLR.gg</span></div>
+      <div class="stat"><b>600K</b><span>views in 10 days covering industry catalysts at Valorant Champions Seoul 2024, on site</span></div>
+      <div class="stat"><b>1 of 150</b><span>Riot Games Accredited Global Press Partners worldwide (Jun 2025)</span></div>
+      <div class="stat"><b>10K</b><span>followers on X</span></div>
+      <div class="stat"><b>50M</b><span>impressions on X since 2022</span></div>
+    </div>
+    <div class="prose">
+      <p>Also recognized with Riot Games Global Media Recognition. <a href="https://x.com/SeulgiVLR" target="_blank" rel="noopener">Follow @SeulgiVLR on X →</a></p>
+    </div>
+  </section>
+
+  <footer><span>Joseph Lapitan · UVA McIntire School of Commerce</span><span>tnc4qk@virginia.edu · josephlapitan.jl@gmail.com · <a href="https://www.linkedin.com/in/joseph-lapitan/" target="_blank" rel="noopener">LinkedIn</a></span></footer>
+</div>
+
+<script>
+const views=["home","work","research","recognition"];
+function show(v,target,initial){
+  if(!views.includes(v)) v="home";
+  views.forEach(id=>{
+    document.getElementById(id).hidden=id!==v;
+    document.getElementById("tab-"+id).setAttribute("aria-selected",id===v?"true":"false");
+  });
+  if(!initial){try{history.replaceState(null,"","#"+v);}catch(e){}}
+  const t=target&&document.getElementById(target);
+  if(t){requestAnimationFrame(()=>{const y=t.getBoundingClientRect().top+window.scrollY-80;window.scrollTo(0,y);});}
+  else window.scrollTo(0,0);
+}
+document.querySelectorAll("[data-go]").forEach(el=>el.addEventListener("click",e=>{e.preventDefault();show(el.dataset.go,el.dataset.target);}));
+show((location.hash||"").replace("#",""),null,true);
+window.addEventListener("load",()=>setTimeout(()=>window.scrollTo(0,0),0));
+
+document.querySelectorAll("[data-read]").forEach(btn=>{
+  const panel=document.getElementById(btn.dataset.read), label=btn.textContent;
+  btn.setAttribute("aria-controls",panel.id);
+  btn.addEventListener("click",()=>{
+    panel.hidden=!panel.hidden;
+    btn.setAttribute("aria-expanded",String(!panel.hidden));
+    btn.textContent=panel.hidden?label:"Close";
+    if(panel.hidden){const e=btn.closest(".entry");window.scrollTo(0,e.getBoundingClientRect().top+window.scrollY-80);}
+  });
+});
+
+document.querySelectorAll("[data-copy]").forEach(btn=>btn.addEventListener("click",()=>{
+  const src=document.getElementById(btn.dataset.copy),text=src.textContent;
+  const reset=()=>setTimeout(()=>btn.textContent="Copy",1800);
+  const done=()=>{btn.textContent="Copied";reset();};
+  const fallback=()=>{const r=document.createRange();r.selectNodeContents(src);const s=getSelection();s.removeAllRanges();s.addRange(r);btn.textContent="Selected";reset();};
+  try{navigator.clipboard.writeText(text).then(done,fallback);}catch(e){fallback();}
+}));
+
+// Price index chart. Month 0 = Sep 2023, month 29 = Feb 2026. null = promo price under $1.50 (excluded).
+const series=[
+  {k:"--s1",base:4.20,pts:{0:4.20,10:null,11:4.32,12:3.72,13:6.74,14:6.65,15:null,16:7.45,17:null,18:7.47,19:12.64,20:12.64,21:10.55,22:10.34,23:8.73,24:9.87,25:9.84,26:9.89,27:10.37,28:10.41,29:10.30}},
+  {k:"--s2",base:3.71,pts:{1:3.71,2:null,3:null,4:9.91,5:9.88,6:null,7:3.68,8:3.77,9:null,10:null,11:null,12:3.73,13:3.87,14:null,15:7.47,16:4.64,17:6.08,18:6.23,19:5.98,20:3.87,21:4.21,22:4.05,23:4.10,24:3.78,25:4.19,26:3.67,27:3.91,28:3.93,29:3.97}},
+  {k:"--s3",base:2.99,pts:{0:2.99,1:2.99,2:2.99,3:2.99,4:2.99,5:null,6:4.24,10:4.39,11:null,12:null,13:null,14:1.81,15:null,16:2.24,17:null,18:4.73,19:6.89,20:5.14,23:6.02,24:6.02,25:6.02,26:6.02,27:6.02,28:6.02,29:6.02}}
+];
+(function(){
+  const svg=document.getElementById("chart"),NS="http://www.w3.org/2000/svg";
+  const W=760,H=330,L=48,R=16,T=16,B=62,x1=29,y1=320;
+  const X=m=>L+m/x1*(W-L-R),Y=v=>T+(1-v/y1)*(H-T-B);
+  const el=(n,a,txt)=>{const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;svg.appendChild(e);return e;};
+  const brk=20+1/30;
+  el("rect",{x:X(brk),y:T,width:X(x1)-X(brk)+4,height:H-T-B,style:"fill:var(--signal-soft)"});
+  [0,100,200,300].forEach(v=>{
+    el("line",{x1:L,x2:W-R,y1:Y(v),y2:Y(v),style:"stroke:var(--rule)","stroke-dasharray":v===100?"":"2 4"});
+    el("text",{x:L-8,y:Y(v)+4,"text-anchor":"end",style:"fill:var(--muted);font:12px var(--mono)"},v);
+  });
+  el("line",{x1:X(brk),x2:X(brk),y1:T,y2:H-B,style:"stroke:var(--signal)"});
+  el("text",{x:X(brk)+6,y:T+14,style:"fill:var(--fg);font:500 12px var(--sans)"},"May 2, 2025");
+  el("text",{x:X(brk)+6,y:T+29,style:"fill:var(--muted);font:12px var(--sans)"},"de minimis exemption ends");
+  [[0,"Sep 2023"],[12,"Sep 2024"],[24,"Sep 2025"]].forEach(([m,l])=>{
+    el("line",{x1:X(m),x2:X(m),y1:H-B,y2:H-B+5,style:"stroke:var(--muted)"});
+    el("text",{x:X(m),y:H-B+19,"text-anchor":m===0?"start":"middle",style:"fill:var(--muted);font:12px var(--mono)"},l);
+  });
+  const ry=H-14;
+  el("text",{x:W-R,y:ry,"text-anchor":"end",style:"fill:var(--muted);font:11px var(--sans)"},"← promo prices under $1.50, excluded");
+  series.forEach((s,i)=>{
+    const ms=Object.keys(s.pts).map(Number).sort((a,b)=>a-b);
+    let d="",prev=null;
+    ms.forEach(m=>{const p=s.pts[m];if(p==null){prev=null;return;}
+      d+=`${prev!==null&&m-prev===1?"L":"M"}${X(m).toFixed(1)},${Y(p/s.base*100).toFixed(1)}`;prev=m;});
+    el("path",{d,fill:"none",style:`stroke:var(${s.k})`,"stroke-width":2,"stroke-linejoin":"round","stroke-linecap":"round"});
+    ms.forEach(m=>{const p=s.pts[m];
+      if(p==null){el("circle",{cx:X(m),cy:ry-9+i*5,r:2.2,style:`fill:var(${s.k})`});return;}
+      el("circle",{cx:X(m),cy:Y(p/s.base*100),r:2.6,style:`fill:var(--panel);stroke:var(${s.k})`,"stroke-width":1.6});
+    });
+  });
+  el("text",{x:L+4,y:Y(100)-6,style:"fill:var(--muted);font:11px var(--mono)"},"Sep 2023 = 100");
+})();
+</script>
+
+</body>
+</html>
